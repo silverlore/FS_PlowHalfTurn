@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="61" >
+    <author>Silverlore</author>
+    <version>1.0.0.0</version>
+    <title>
+        <en>Plow half turn</en>
+    </title>
+    <description>
+        <en><![CDATA[This Script makes it possible to turn a plow half way to make turning easier]]></en>
+    </description>
+
+    <l10n filenamePrefix="translations/translation"/>
+
+    <iconFilename>icon.dds</iconFilename>
+
+    <multiplayer supported = "true" />
+
+    <actions>
+        <action name="PHT_ROTATE_CENTER" axisType="HALF" />
+    </actions>
+
+    <inputBinding>
+        <actionBinding action="PHT_ROTATE_CENTER" >
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_x" />
+        </actionBinding>
+    </inputBinding>
+
+    <extraSourceFiles>
+        <sourceFile filename="src/launcher.lua" />
+    </extraSourceFiles>
+
+    <specializations>
+        <specialization name="PlowHalfTurn" className="PlowHalfTurn" filename="src/vehicles/specialization/PlowHalfTurn.lua"/>
+    </specializations>
+
+</modDesc>
