@@ -48,10 +48,8 @@ function PlowHalfTurn:actionHalfTurn()
     if plowSpec.rotationPart.turnAnimation ~= nil then
         if self:getIsPlowRotationAllowed() then
             if spec.centered then
-                print("PHT: turning to side")
                 self:setRotationMax(not plowSpec.rotationMax)
             else
-                print("PHT: turning to center")
                 spec.centered = true
                 self:setRotationCenter()
             end
@@ -64,7 +62,6 @@ function PlowHalfTurn:setRotationMax(superFunc,rotationMax, noEventSend, turnAni
     local spec = self["spec_" .. PlowHalfTurn.modName .. ".PlowHalfTurn"]
     if plowSpec.rotationPart.turnAnimation ~= nil then
         if self:getIsPlowRotationAllowed() then
-            print("PHT: complete turn")
             spec.centered = false
         end
     end
