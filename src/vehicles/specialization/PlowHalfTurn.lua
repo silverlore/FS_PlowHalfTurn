@@ -9,7 +9,11 @@ function PlowHalfTurn.registerEventListeners(vehicleType)
 end
 
 function PlowHalfTurn.registerOverwrittenFunctions(vehicleType)
-    SpecializationUtil.registerOverwrittenFunction(vehicleType, "setRotationMax",                 PlowHalfTurn.setRotationMax)
+    SpecializationUtil.registerOverwrittenFunction(vehicleType, "setRotationMax", PlowHalfTurn.setRotationMax)
+end
+
+function PlowHalfTurn.registerFunctions(vehicleType)
+    SpecializationUtil.registerFunction(vehicleType, "actionHalfTurn", PlowHalfTurn.actionHalfTurn)
 end
 
 function PlowHalfTurn:onLoad(savegame)
@@ -31,7 +35,7 @@ function PlowHalfTurn:onRegisterActionEvents(isActiveForInput, isActiveForInputI
                 local function insert(_, actionEventId)
                     table.insert(nonDrawActionEvents, actionEventId)
                 end
-                insert(self:addPoweredActionEvent(spec.actionEvents, InputAction.PHT_ROTATE_CENTER, self, PlowHalfTurn.actionHalfTurn, false, true, false, true, nil))
+                insert(self:addPoweredActionEvent(spec.actionEvents, InputAction.PHT_ROTATE_CENTER, self, PlowHalfTurn.actionEventHalfTurn, false, true, false, true, nil))
 
                 for _, actionEventId in ipairs(nonDrawActionEvents) do
                     g_inputBinding:setActionEventTextPriority(actionEventId, GS_PRIO_VERY_LOW)
@@ -42,7 +46,7 @@ function PlowHalfTurn:onRegisterActionEvents(isActiveForInput, isActiveForInputI
     end
 end
 
-function PlowHalfTurn:actionHalfTurn()
+function PlowHalfTurn.actionEventHalfTurn(self, actionName, inputValue, callbackState, isAnalog)
     local plowSpec = self.spec_plow
     local spec = self["spec_" .. PlowHalfTurn.modName .. ".PlowHalfTurn"]
     if plowSpec.rotationPart.turnAnimation ~= nil then
@@ -50,9 +54,28 @@ function PlowHalfTurn:actionHalfTurn()
             if spec.centered then
                 self:setRotationMax(not plowSpec.rotationMax)
             else
-                spec.centered = true
-                self:setRotationCenter()
+                self:actionHalfTurn(false)
             end
+            
+        end
+    end
+end
+
+function PlowHalfTurn:actionHalfTurn(noEventSend)
+    if noEventSend == nil or noEventSend == false then
+        if g_server ~= nil then
+            g_server:broadcastEvent(PlowHalfRotationEvent.new(self), nil, nil, self)
+        else
+            g_client:getServerConnection():sendEvent(PlowHalfRotationEvent.new(self))
+        end
+    end
+
+    local plowSpec = self.spec_plow
+    local spec = self["spec_" .. PlowHalfTurn.modName .. ".PlowHalfTurn"]
+    if plowSpec.rotationPart.turnAnimation ~= nil then
+        if self:getIsPlowRotationAllowed() then
+            spec.centered = true
+            self:setRotationCenter()
         end
     end
 end

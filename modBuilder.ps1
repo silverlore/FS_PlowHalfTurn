@@ -1,4 +1,4 @@
-$include = @("*.xml", "*.lua", "*.dds", "src\vehicles\specialization\*.lua", "src\*.lua", "translations\*.xml")
+$include = @("*.xml", "*.lua", "*.dds", "src\vehicles\specialization\*.lua", "src\vehicles\specialization\event\*.lua", "src\*.lua", "translations\*.xml")
 $zipFilename = "FS22_PlowHalfTurn.zip"
 
 if(test-path "$env:ProgramFiles\WinRAR\WinRAR.exe")
