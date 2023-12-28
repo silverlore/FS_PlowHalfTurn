@@ -16,12 +16,20 @@
     <multiplayer supported = "true" />
 
     <actions>
+        <action name="PHT_ROTATE_RIGHT" axisType="HALF" />
         <action name="PHT_ROTATE_CENTER" axisType="HALF" />
+        <action name="PHT_ROTATE_LEFT" axisType="HALF" />
     </actions>
 
     <inputBinding>
+        <actionBinding action="PHT_ROTATE_RIGHT" >
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_n" />
+        </actionBinding>
         <actionBinding action="PHT_ROTATE_CENTER" >
             <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_b" />
+        </actionBinding>
+        <actionBinding action="PHT_ROTATE_LEFT" >
+            <binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_v" />
         </actionBinding>
     </inputBinding>
 

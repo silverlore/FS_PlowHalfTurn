@@ -16,9 +16,10 @@ end
 ---Create new instance of event
 -- @param table object object
 -- @param boolean rotationMax rotation max
-function PlowHalfRotationEvent.new(object)
+function PlowHalfRotationEvent.new(object, targetState)
     local self = PlowHalfRotationEvent.emptyNew()
     self.object = object
+    self.targetState = targetState
     return self
 end
 
@@ -28,6 +29,7 @@ end
 -- @param integer connection connection
 function PlowHalfRotationEvent:readStream(streamId, connection)
     self.object = NetworkUtil.readNodeObject(streamId)
+    self.targetState = streamReadInt8(steamId)
     self:run(connection)
 end
 
@@ -37,6 +39,7 @@ end
 -- @param integer connection connection
 function PlowHalfRotationEvent:writeStream(streamId, connection)
     NetworkUtil.writeNodeObject(streamId, self.object)
+    streamWriteInt8(streamId, self.targetState)
 end
 
 
@@ -44,10 +47,10 @@ end
 -- @param integer connection connection
 function PlowHalfRotationEvent:run(connection)
     if self.object ~= nil and self.object:getIsSynchronized() then
-        self.object:actionHalfTurn(true)
+        self.object:actionHalfTurn(self.targetState, true)
     end
 
     if not connection:getIsServer() then
-        g_server:broadcastEvent(PlowHalfRotationEvent.new(self.object), nil, connection, self.object)
+        g_server:broadcastEvent(PlowHalfRotationEvent.new(self.object, self.targetState), nil, connection, self.object)
     end
 end

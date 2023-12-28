@@ -3,6 +3,8 @@
     <translationContributors>Silverlore</translationContributors>
 
     <texts>
-        <text name="input_PHT_ROTATE_CENTER" text="Center Plow"/>
+        <text name="input_PHT_ROTATE_RIGHT" text="Turn Plow to Right"/>
+        <text name="input_PHT_ROTATE_CENTER" text="Turn Plow to Center"/>
+        <text name="input_PHT_ROTATE_LEFT" text="Turn Plow to Left"/>
     </texts>
 </l10n>
