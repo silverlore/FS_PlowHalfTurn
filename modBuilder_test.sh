@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INCLUDE="*.xml *.lua *.dds src/vehicles/specialization/*.lua src/utils/*.lua src/*.lua translations/*.xml"
+INCLUDE="*.xml *.lua *.dds src/vehicles/specialization/*.lua src/vehicles/specialization/event/*.lua src/utils/*.lua src/*.lua translations/*.xml"
 ZIP_FILENAME="FS25_PlowHalfTurn.zip"
 
 zip -r  $ZIP_FILENAME $INCLUDE
